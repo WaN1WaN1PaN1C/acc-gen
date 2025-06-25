@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>アカウント名 & パスワード生成</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    input, select {
+      width: 100%;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    button {
+      font-size: 16px;
+      padding: 8px;
+      width: 100%;
+    }
+    label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>アカウント名,カスタムパスワード生成器</h2>
+
+  <button onclick="generate()">生成する</button>
+
+  <h3>アカウント名:</h3>
+  <input type="text" id="username" readonly>
+
+  <h3>パスワード:</h3>
+  <input type="text" id="password" readonly>
+
+  <label for="length">パスワードの長さ（例：8〜32）:</label>
+  <input type="number" id="length" min="4" max="64" value="12">
+
+  <label>
+    <input type="checkbox" id="useSymbols">
+    記号（! + ? など）を含める
+  </label>
+
+  <script>
+    const words = [
+      // かわちぃぃぃ
+      "sakura", "momo", "hina", "nana", "yuki", "yume", "mikan", "rin", "suzu", "anzu",
+      "azuki", "niko", "moca", "mimi", "riko", "emi", "sana", "kana", "mei", "koko",
+      "chika", "mari", "aoi", "runa", "riri", "tsuki", "hime", "hina", "sora", "koharu",
+      "miyu", "haru", "noa", "rika", "hiyori", "moe", "ayane", "miu", "iori", "eina",
+
+      // かっけぇ
+      "kaito", "takumi", "souta", "ren", "ryu", "raiden", "akira", "zen", "kei", "kou",
+      "shiro", "kuro", "kaoru", "shin", "subaru", "souma", "haruki", "toma", "nagisa", "rinne",
+      "kaname", "hayate", "yuuto", "yuto", "nao", "jou", "asahi", "tsubasa", "nagare", "hibiki",
+
+      // いたいたしい
+      "zero", "omega", "alpha", "luna", "noir", "ragnar", "shade", "flare", "phantom", "mirage",
+      "abyss", "blitz", "frost", "nova", "eclipse", "ignite", "celes", "aurora", "chaos", "dust",
+      "specter", "cypher", "hollow", "ember", "vortex", "lucia", "neon", "sol", "myst", "drift",
+      "zephyr", "aura", "light", "void", "inari", "kagura", "yamato", "susano", "izanagi", "tsukuyomi",
+
+      // しぜん
+      "neko", "inu", "tora", "kitsune", "uma", "kuma", "usagi", "tanuki", "hane", "ame",
+      "yuki", "mizu", "kaze", "kumo", "sango", "taiyo", "yoru", "hoshi", "takane", "sango",
+
+      // かっちょいぃ
+      "cool", "dark", "ninja", "shadow", "fast", "crazy", "fire", "ghost", "blue", "neo",
+      "red", "cyber", "ice", "storm", "mega", "ultra", "tiger", "fox", "blade", "dragon",
+      "hunter", "wolf", "pixel", "matrix", "fusion", "flare", "stormy", "blaze", "bolt", "hawk",
+      "glitch", "sniper", "silent", "spirit", "spark", "dream", "sky", "cloud", "heart", "galaxy"
+    ];
+
+    function generate() {
+      const word = words[Math.floor(Math.random() * words.length)];
+      const number = Math.floor(Math.random() * 9000) + 1000;
+      const username = word + number;
+      document.getElementById("username").value = username;
+
+      const length = parseInt(document.getElementById("length").value) || 12;
+      const useSymbols = document.getElementById("useSymbols").checked;
+
+      const baseChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      const symbolChars = "!@#$%^&*()_+-=~`[]{}|;:',.<>?/?!+な";
+      const chars = useSymbols ? baseChars + symbolChars : baseChars;
+
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        password += chars[Math.floor(Math.random() * chars.length)];
+      }
+
+      document.getElementById("password").value = password;
+    }
+  </script>
+</body>
+</html>
